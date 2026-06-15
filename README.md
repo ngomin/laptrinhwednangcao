@@ -1,6 +1,6 @@
 ## Phân công công việc
 
-###  Nguyễn Công Sơn Anh 
+###  Ngô Nhật Minh
 - Xây dựng hệ thống Authentication  
   - authController.js  
   - authRoute.js  
@@ -17,7 +17,7 @@
 - Xây dựng Dashboard  
   - dashboardController.js  
   - dashboardRoute.js  
-###  Ngô Nhật Minh 
+###  Nguyễn Công Sơn Anh
 - Xây dựng giao diện Sản phẩm  
   - productController.js  
   - productRoute.js  
