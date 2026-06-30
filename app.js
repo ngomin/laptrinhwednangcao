@@ -1,4 +1,4 @@
-// app.js
+
 // Điểm khởi động chính của ứng dụng Quản lý Kho hàng
 
 require('dotenv').config();
