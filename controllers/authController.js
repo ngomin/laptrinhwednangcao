@@ -116,3 +116,17 @@ const AuthController = {
     req.flash('success', 'Tạo người dùng thành công.');
     res.redirect('/auth/users');
   },
+   // POST /auth/users/:id/delete
+  deleteUser(req, res) {
+    const { id } = req.params;
+    if (id === req.session.user.id) {
+      req.flash('error', 'Không thể xoá tài khoản đang đăng nhập.');
+      return res.redirect('/auth/users');
+    }
+    UserModel.delete(id);
+    req.flash('success', 'Đã xoá người dùng.');
+    res.redirect('/auth/users');
+  }
+};
+
+module.exports = AuthController;
