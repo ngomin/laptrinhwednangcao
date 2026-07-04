@@ -78,3 +78,12 @@ const UserModel = {
   async verifyPassword(plainPassword, hashedPassword) {
     return await bcrypt.compare(plainPassword, hashedPassword);
   },
+    // Lấy thông tin an toàn (không có password)
+  safeUser(user) {
+    if (!user) return null;
+    const { password, ...safe } = user;
+    return safe;
+  }
+};
+
+module.exports = UserModel;
