@@ -1,0 +1,100 @@
+<%- include('../partials/layout-start') %>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+  <div class="lg:col-span-2 space-y-6">
+    <div class="bg-white border border-slate-200 rounded-xl p-6">
+      <div class="flex items-start justify-between mb-4">
+        <div>
+          <h2 class="text-xl font-bold text-slate-800"><%= product.name %></h2>
+          <p class="text-sm text-slate-500 mt-1"><%= product.code %></p>
+        </div>
+        <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium <%= product.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' %>">
+          <%= product.status === 'active' ? 'Đang bán' : 'Ngừng bán' %>
+        </span>
+      </div>
+
+      <p class="text-sm text-slate-600 mb-6"><%= product.description || 'Không có mô tả.' %></p>
+
+      <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+        <div>
+          <p class="text-xs text-slate-500 mb-1">Giá nhập</p>
+          <p class="font-semibold text-slate-800"><%= formatCurrency(product.costPrice) %></p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 mb-1">Giá bán</p>
+          <p class="font-semibold text-slate-800"><%= formatCurrency(product.salePrice) %></p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 mb-1">Tồn kho</p>
+          <p class="font-semibold <%= product.stock === 0 ? 'text-rose-600' : product.stock <= product.minStock ? 'text-amber-600' : 'text-slate-800' %>">
+            <%= product.stock %> <%= product.unit %>
+          </p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 mb-1">Tồn tối thiểu</p>
+          <p class="font-semibold text-slate-800"><%= product.minStock %> <%= product.unit %></p>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4 mt-4 pt-4 border-t border-slate-100">
+        <div>
+          <p class="text-xs text-slate-500 mb-1">Danh mục</p>
+          <p class="text-sm font-medium text-slate-700"><%= category ? category.name : '—' %></p>
+        </div>
+        <div>
+          <p class="text-xs text-slate-500 mb-1">Nhà cung cấp</p>
+          <p class="text-sm font-medium text-slate-700"><%= supplier ? supplier.name : '—' %></p>
+        </div>
+      </div>
+
+      <div class="flex gap-3 mt-6 pt-4 border-t border-slate-100">
+        <a href="/products/<%= product.id %>/edit" class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2 rounded-lg">Sửa sản phẩm</a>
+        <a href="/warehouse/import" class="bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-medium px-4 py-2 rounded-lg">Nhập kho</a>
+        <a href="/warehouse/export" class="bg-slate-700 hover:bg-slate-800 text-white text-sm font-medium px-4 py-2 rounded-lg">Xuất kho</a>
+      </div>
+    </div>
+
+    <!-- Transaction history -->
+    <div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+      <div class="px-5 py-4 border-b border-slate-100">
+        <h3 class="text-sm font-semibold text-slate-800">Lịch sử giao dịch kho gần đây</h3>
+      </div>
+      <div class="divide-y divide-slate-100">
+        <% if (transactions.length === 0) { %>
+          <p class="text-sm text-slate-400 px-5 py-4">Chưa có giao dịch nào.</p>
+        <% } %>
+        <% transactions.forEach(t => { %>
+          <div class="flex items-center justify-between px-5 py-3.5">
+            <div class="flex items-center gap-3">
+              <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm
+                <%= t.type === 'import' ? 'bg-emerald-100 text-emerald-700' : t.type === 'export' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700' %>">
+                <%= t.type === 'import' ? '↓' : t.type === 'export' ? '↑' : '✎' %>
+              </span>
+              <div>
+                <p class="text-sm font-medium text-slate-800"><%= t.type === 'import' ? 'Nhập kho' : t.type === 'export' ? 'Xuất kho' : 'Điều chỉnh' %></p>
+                <p class="text-xs text-slate-400"><%= moment(t.createdAt).format('DD/MM/YYYY HH:mm') %></p>
+              </div>
+            </div>
+            <p class="text-sm font-semibold <%= t.quantity >= 0 ? 'text-emerald-600' : 'text-rose-600' %>">
+              <%= t.quantity >= 0 ? '+' : '' %><%= t.quantity %> <%= t.unit %>
+            </p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+
+  <div class="space-y-6">
+    <div class="bg-white border border-slate-200 rounded-xl p-5">
+      <h3 class="text-sm font-semibold text-slate-800 mb-3">Thông tin nhanh</h3>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span class="text-slate-500">Mã sản phẩm</span><span class="font-medium text-slate-700"><%= product.code %></span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Đơn vị</span><span class="font-medium text-slate-700"><%= product.unit %></span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Giá trị tồn kho</span><span class="font-medium text-slate-700"><%= formatCurrency(product.stock * product.costPrice) %></span></div>
+        <div class="flex justify-between"><span class="text-slate-500">Lợi nhuận/đơn vị</span><span class="font-medium text-emerald-600"><%= formatCurrency(product.salePrice - product.costPrice) %></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/layout-end') %>
