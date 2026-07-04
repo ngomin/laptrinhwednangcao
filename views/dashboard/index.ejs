@@ -1,0 +1,143 @@
+<%- include('../partials/layout-start') %>
+
+<link rel="stylesheet" href="/css/dashboard.css">
+
+<!-- Stat cards -->
+<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white border border-slate-200 rounded-xl p-5 stat-card">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-sm text-slate-500">Doanh thu tháng</p>
+      <span class="text-lg">💰</span>
+    </div>
+    <p class="text-2xl font-bold text-slate-800"><%= formatCurrency(orderStats.monthRevenue) %></p>
+    <p class="text-xs text-slate-400 mt-1">Hôm nay: <%= formatCurrency(orderStats.todayRevenue) %></p>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-xl p-5 stat-card">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-sm text-slate-500">Tổng đơn hàng</p>
+      <span class="text-lg">🧾</span>
+    </div>
+    <p class="text-2xl font-bold text-slate-800"><%= orderStats.totalOrders %></p>
+    <p class="text-xs text-slate-400 mt-1"><%= orderStats.pendingOrders %> đang chờ xử lý</p>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-xl p-5 stat-card">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-sm text-slate-500">Khách hàng</p>
+      <span class="text-lg">👥</span>
+    </div>
+    <p class="text-2xl font-bold text-slate-800"><%= customerStats.total %></p>
+    <p class="text-xs text-slate-400 mt-1"><%= customerStats.active %> đang hoạt động</p>
+  </div>
+
+  <div class="bg-white border border-slate-200 rounded-xl p-5 stat-card">
+    <div class="flex items-center justify-between mb-2">
+      <p class="text-sm text-slate-500">Sản phẩm sắp hết</p>
+      <span class="text-lg">⚠️</span>
+    </div>
+    <p class="text-2xl font-bold text-rose-600"><%= productStats.lowStock %></p>
+    <p class="text-xs text-slate-400 mt-1"><%= productStats.total %> sản phẩm tổng cộng</p>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-6">
+  <!-- Revenue chart -->
+  <div class="lg:col-span-2 bg-white border border-slate-200 rounded-xl p-5 dashboard-card">
+    <h3 class="text-sm font-semibold text-slate-800 mb-5">Doanh thu 6 tháng gần nhất</h3>
+    <% const maxRevenue = Math.max(...revenueChart.map(r => r.revenue), 1); %>
+    <div class="flex items-end justify-between gap-3 h-48 chart-container">
+      <% revenueChart.forEach(r => { %>
+        <div class="flex-1 flex flex-col items-center gap-2">
+          <div class="w-full flex items-end justify-center h-36">
+            <div class="w-full max-w-[36px] bg-brand-500 rounded-t-md bar"
+                 style="height: <%= Math.max((r.revenue / maxRevenue) * 100, 2) %>%"
+                 title="<%= formatCurrency(r.revenue) %>"></div>
+          </div>
+          <p class="text-xs text-slate-500"><%= r.label %></p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Low stock products -->
+  <div class="bg-white border border-slate-200 rounded-xl p-5 dashboard-card">
+    <h3 class="text-sm font-semibold text-slate-800 mb-4">Sản phẩm sắp hết hàng</h3>
+    <% if (lowStockProducts.length === 0) { %>
+      <p class="text-sm text-slate-400">Không có sản phẩm nào sắp hết hàng.</p>
+    <% } else { %>
+      <div class="space-y-3">
+        <% lowStockProducts.slice(0, 5).forEach(p => { %>
+          <a href="/products/<%= p.id %>" class="flex items-center justify-between group low-stock-item p-2 -mx-2 rounded-lg">
+            <div class="min-w-0">
+              <p class="text-sm font-medium text-slate-700 truncate group-hover:text-brand-600"><%= p.name %></p>
+              <p class="text-xs text-slate-400"><%= p.code %></p>
+            </div>
+            <span class="text-xs font-semibold px-2 py-1 rounded-full <%= p.stock === 0 ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700' %>">
+              <%= p.stock %> <%= p.unit %>
+            </span>
+          </a>
+        <% }) %>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+  <!-- Recent orders -->
+  <div class="bg-white border border-slate-200 rounded-xl overflow-hidden dashboard-card">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+      <h3 class="text-sm font-semibold text-slate-800">Đơn hàng gần đây</h3>
+      <a href="/orders" class="text-xs font-medium text-brand-600 hover:text-brand-700">Xem tất cả →</a>
+    </div>
+    <div class="divide-y divide-slate-100">
+      <% if (recentOrders.length === 0) { %>
+        <p class="text-sm text-slate-400 px-5 py-4">Chưa có đơn hàng nào.</p>
+      <% } %>
+      <% recentOrders.forEach(o => { %>
+        <a href="/orders/<%= o.id %>" class="flex items-center justify-between px-5 py-3.5 recent-item">
+          <div>
+            <p class="text-sm font-medium text-slate-800"><%= o.code %></p>
+            <p class="text-xs text-slate-500"><%= o.customerName %></p>
+          </div>
+          <div class="text-right">
+            <p class="text-sm font-semibold text-slate-800"><%= formatCurrency(o.total) %></p>
+            <p class="text-xs text-slate-400"><%= moment(o.orderDate).format('DD/MM/YYYY') %></p>
+          </div>
+        </a>
+      <% }) %>
+    </div>
+  </div>
+
+  <!-- Recent warehouse transactions -->
+  <div class="bg-white border border-slate-200 rounded-xl overflow-hidden dashboard-card">
+    <div class="flex items-center justify-between px-5 py-4 border-b border-slate-100">
+      <h3 class="text-sm font-semibold text-slate-800">Giao dịch kho gần đây</h3>
+      <a href="/warehouse" class="text-xs font-medium text-brand-600 hover:text-brand-700">Xem tất cả →</a>
+    </div>
+    <div class="divide-y divide-slate-100">
+      <% if (recentTransactions.length === 0) { %>
+        <p class="text-sm text-slate-400 px-5 py-4">Chưa có giao dịch nào.</p>
+      <% } %>
+      <% recentTransactions.forEach(t => { %>
+        <div class="flex items-center justify-between px-5 py-3.5 recent-item">
+          <div class="flex items-center gap-3">
+            <span class="w-8 h-8 rounded-full flex items-center justify-center text-sm
+              <%= t.type === 'import' ? 'bg-emerald-100 text-emerald-700' : t.type === 'export' ? 'bg-rose-100 text-rose-700' : 'bg-amber-100 text-amber-700' %>">
+              <%= t.type === 'import' ? '↓' : t.type === 'export' ? '↑' : '✎' %>
+            </span>
+            <div>
+              <p class="text-sm font-medium text-slate-800 truncate max-w-[160px]"><%= t.productName %></p>
+              <p class="text-xs text-slate-500"><%= t.type === 'import' ? 'Nhập kho' : t.type === 'export' ? 'Xuất kho' : 'Điều chỉnh' %></p>
+            </div>
+          </div>
+          <p class="text-sm font-semibold <%= t.quantity >= 0 ? 'text-emerald-600' : 'text-rose-600' %>">
+            <%= t.quantity >= 0 ? '+' : '' %><%= t.quantity %> <%= t.unit %>
+          </p>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+</div>
+
+<%- include('../partials/layout-end') %>

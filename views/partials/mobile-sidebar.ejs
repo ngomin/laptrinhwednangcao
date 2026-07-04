@@ -1,0 +1,33 @@
+<div id="mobile-sidebar" class="lg:hidden fixed inset-0 z-40 -translate-x-full transition-transform duration-200 ease-out mobile-sidebar">
+  <div class="absolute inset-0 bg-slate-900/50" onclick="document.getElementById('mobile-sidebar').classList.add('-translate-x-full')"></div>
+  <aside class="relative w-64 h-full bg-slate-900 text-slate-300 flex flex-col">
+    <div class="flex items-center justify-between px-5 h-16 border-b border-slate-800">
+      <div class="flex items-center gap-2">
+        <div class="w-9 h-9 rounded-lg bg-brand-500 flex items-center justify-center text-white font-bold">K</div>
+        <p class="text-white font-semibold text-sm">Kho Hàng</p>
+      </div>
+      <button onclick="document.getElementById('mobile-sidebar').classList.add('-translate-x-full')" class="text-slate-400 hover:text-white p-1">
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
+    </div>
+    <nav class="flex-1 overflow-y-auto py-4 px-3 space-y-1">
+      <%- include('nav-link', { href: '/dashboard', label: 'Tổng quan', prefix: '/dashboard', icon: '📊' }) %>
+      <%- include('nav-link', { href: '/products', label: 'Sản phẩm', prefix: '/products', icon: '📦' }) %>
+      <%- include('nav-link', { href: '/categories', label: 'Danh mục', prefix: '/categories', icon: '🗂️' }) %>
+      <%- include('nav-link', { href: '/warehouse', label: 'Quản lý Kho', prefix: '/warehouse', icon: '🏭' }) %>
+      <%- include('nav-link', { href: '/orders', label: 'Đơn hàng', prefix: '/orders', icon: '🧾' }) %>
+      <%- include('nav-link', { href: '/customers', label: 'Khách hàng', prefix: '/customers', icon: '👥' }) %>
+      <%- include('nav-link', { href: '/suppliers', label: 'Nhà cung cấp', prefix: '/suppliers', icon: '🚚' }) %>
+      <% if (currentUser && currentUser.role === 'admin') { %>
+        <%- include('nav-link', { href: '/auth/users', label: 'Người dùng', prefix: '/auth/users', icon: '🛡️' }) %>
+      <% } %>
+    </nav>
+    <div class="px-3 py-4 border-t border-slate-800">
+      <a href="/auth/logout" class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-rose-300 hover:bg-rose-950/40">
+        <span class="w-5 text-center">🚪</span><span>Đăng xuất</span>
+      </a>
+    </div>
+  </aside>
+</div>

@@ -1,0 +1,63 @@
+
+/* Sidebar */
+.sidebar-link {
+    transition: all 0.2s ease;
+}
+
+.sidebar-link:hover {
+    transform: translateX(4px);
+}
+
+/* Mobile sidebar */
+.mobile-sidebar {
+    transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+}
+
+/* Topbar */
+.topbar {
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+/* Alert messages */
+.alert {
+    animation: slideIn 0.3s ease forwards;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Nav active state */
+.nav-active {
+    background-color: #225aeb;
+    color: white;
+    box-shadow: 0 1px 2px rgba(34, 90, 235, 0.3);
+}
+
+/* Scrollbar improvements */
+.overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+}
+
+.overflow-y-auto::-webkit-scrollbar-thumb {
+    background: #475569;
+    border-radius: 9999px;
+}
+
+/* Card hover effects */
+.card-hover {
+    transition: all 0.2s ease;
+}
+
+.card-hover:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05), 
+                0 4px 6px -4px rgb(0 0 0 / 0.05);
+    transform: translateY(-1px);
+}

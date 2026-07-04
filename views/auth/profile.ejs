@@ -1,0 +1,67 @@
+<%- include('../partials/layout-start') %>
+
+<div class="flex items-center justify-between mb-6">
+  <p class="text-sm text-slate-500"><%= users.length %> người dùng trong hệ thống</p>
+  <button onclick="document.getElementById('create-user-modal').classList.remove('hidden')"
+          class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2">
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+    Thêm người dùng
+  </button>
+</div>
+
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+        <tr>
+          <th class="text-left px-5 py-3 font-medium">Người dùng</th>
+          <th class="text-left px-5 py-3 font-medium">Email</th>
+          <th class="text-left px-5 py-3 font-medium">Vai trò</th>
+          <th class="text-right px-5 py-3 font-medium">Hành động</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <% users.forEach(u => { %>
+          <tr class="table-row-hover">
+            <!-- ... giữ nguyên nội dung -->
+            <td class="px-5 py-3.5">
+              <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-brand-100 text-brand-700 flex items-center justify-center font-semibold text-xs">
+                  <%= (u.fullName || '?').charAt(0).toUpperCase() %>
+                </div>
+                <div>
+                  <p class="font-medium text-slate-800"><%= u.fullName %></p>
+                  <p class="text-xs text-slate-500">@<%= u.username %></p>
+                </div>
+              </div>
+            </td>
+            <td class="px-5 py-3.5 text-slate-600"><%= u.email || '—' %></td>
+            <td class="px-5 py-3.5">
+              <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium <%= u.role === 'admin' ? 'bg-violet-100 text-violet-700' : 'bg-slate-100 text-slate-600' %>">
+                <%= u.role === 'admin' ? 'Quản trị viên' : 'Nhân viên' %>
+              </span>
+            </td>
+            <td class="px-5 py-3.5 text-right">
+              <% if (currentUser.id !== u.id) { %>
+                <form action="/auth/users/<%= u.id %>/delete" method="POST" class="confirm-delete inline" data-confirm-message="Xoá người dùng này?">
+                  <button type="submit" class="text-rose-600 hover:text-rose-800 text-xs font-medium">Xoá</button>
+                </form>
+              <% } else { %>
+                <span class="text-xs text-slate-400">Bạn</span>
+              <% } %>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- Modal -->
+<div id="create-user-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center px-4">
+  <div class="absolute inset-0 bg-slate-900/50" onclick="document.getElementById('create-user-modal').classList.add('hidden')"></div>
+  <div class="relative bg-white rounded-xl shadow-xl w-full max-w-md p-6 fade-in">
+  </div>
+</div>
+
+<%- include('../partials/layout-end') %>

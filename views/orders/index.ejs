@@ -1,0 +1,95 @@
+<%- include('../partials/layout-start') %>
+
+<link rel="stylesheet" href="/css/orders.css">
+
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white border border-slate-200 rounded-xl p-4 order-stat-card">
+    <p class="text-xs text-slate-500 mb-1">Tổng đơn hàng</p>
+    <p class="text-xl font-bold text-slate-800"><%= stats.totalOrders %></p>
+  </div>
+  <div class="bg-white border border-slate-200 rounded-xl p-4 order-stat-card">
+    <p class="text-xs text-slate-500 mb-1">Hoàn thành</p>
+    <p class="text-xl font-bold text-emerald-600"><%= stats.completedOrders %></p>
+  </div>
+  <div class="bg-white border border-slate-200 rounded-xl p-4 order-stat-card">
+    <p class="text-xs text-slate-500 mb-1">Chờ xử lý</p>
+    <p class="text-xl font-bold text-amber-600"><%= stats.pendingOrders %></p>
+  </div>
+  <div class="bg-white border border-slate-200 rounded-xl p-4 order-stat-card">
+    <p class="text-xs text-slate-500 mb-1">Doanh thu tháng</p>
+    <p class="text-xl font-bold text-slate-800"><%= formatCurrency(stats.monthRevenue) %></p>
+  </div>
+</div>
+
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+  <form method="GET" class="flex flex-wrap items-center gap-2 flex-1">
+    <input type="text" name="search" value="<%= filters.search %>" placeholder="Tìm mã đơn..."
+           class="px-3.5 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 w-full sm:w-48">
+    <select name="status" onchange="this.form.submit()" class="px-3 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500">
+      <option value="">Tất cả trạng thái</option>
+      <option value="pending" <%= filters.status === 'pending' ? 'selected' : '' %>>Chờ xử lý</option>
+      <option value="confirmed" <%= filters.status === 'confirmed' ? 'selected' : '' %>>Đã xác nhận</option>
+      <option value="delivering" <%= filters.status === 'delivering' ? 'selected' : '' %>>Đang giao</option>
+      <option value="completed" <%= filters.status === 'completed' ? 'selected' : '' %>>Hoàn thành</option>
+      <option value="cancelled" <%= filters.status === 'cancelled' ? 'selected' : '' %>>Đã huỷ</option>
+    </select>
+    <select name="paymentStatus" onchange="this.form.submit()" class="px-3 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500">
+      <option value="">Tất cả thanh toán</option>
+      <option value="pending" <%= filters.paymentStatus === 'pending' ? 'selected' : '' %>>Chưa thanh toán</option>
+      <option value="paid" <%= filters.paymentStatus === 'paid' ? 'selected' : '' %>>Đã thanh toán</option>
+    </select>
+    <button type="submit" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium">Lọc</button>
+  </form>
+  <a href="/orders/create"
+     class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2 justify-center">
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+    Tạo đơn hàng
+  </a>
+</div>
+
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+        <tr>
+          <th class="text-left px-5 py-3 font-medium">Mã đơn</th>
+          <th class="text-left px-5 py-3 font-medium">Khách hàng</th>
+          <th class="text-left px-5 py-3 font-medium">Ngày đặt</th>
+          <th class="text-right px-5 py-3 font-medium">Tổng tiền</th>
+          <th class="text-left px-5 py-3 font-medium">Trạng thái</th>
+          <th class="text-left px-5 py-3 font-medium">Thanh toán</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <% if (orders.length === 0) { %>
+          <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400">Không tìm thấy đơn hàng nào.</td></tr>
+        <% } %>
+        <% orders.forEach(o => { %>
+          <tr class="table-row-hover cursor-pointer" onclick="window.location='/orders/<%= o.id %>'">
+            <td class="px-5 py-3.5 font-medium text-slate-800"><%= o.code %></td>
+            <td class="px-5 py-3.5 text-slate-600"><%= o.customerName %></td>
+            <td class="px-5 py-3.5 text-slate-500"><%= moment(o.orderDate).format('DD/MM/YYYY') %></td>
+            <td class="px-5 py-3.5 text-right font-medium text-slate-800"><%= formatCurrency(o.total) %></td>
+            <td class="px-5 py-3.5">
+              <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium status-badge
+                <% if (o.status === 'completed') { %>bg-emerald-100 text-emerald-700
+                <% } else if (o.status === 'cancelled') { %>bg-rose-100 text-rose-700
+                <% } else if (o.status === 'delivering') { %>bg-sky-100 text-sky-700
+                <% } else if (o.status === 'confirmed') { %>bg-violet-100 text-violet-700
+                <% } else { %>bg-amber-100 text-amber-700<% } %>">
+                <%= o.status === 'completed' ? 'Hoàn thành' : o.status === 'cancelled' ? 'Đã huỷ' : o.status === 'delivering' ? 'Đang giao' : o.status === 'confirmed' ? 'Đã xác nhận' : 'Chờ xử lý' %>
+              </span>
+            </td>
+            <td class="px-5 py-3.5">
+              <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium <%= o.paymentStatus === 'paid' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' %>">
+                <%= o.paymentStatus === 'paid' ? 'Đã thanh toán' : 'Chưa thanh toán' %>
+              </span>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('../partials/layout-end') %>

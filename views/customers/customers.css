@@ -1,0 +1,40 @@
+/* customers.css */
+
+.table-row-hover {
+    transition: all 0.2s ease;
+}
+
+.table-row-hover:hover {
+    background-color: #f8fafc;
+}
+
+/* Stats cards */
+.stats-card {
+    transition: transform 0.2s ease;
+}
+
+.stats-card:hover {
+    transform: translateY(-2px);
+}
+
+/* Search and filter bar */
+.filter-bar {
+    background-color: #fff;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+/* Customer table improvements */
+.customer-table th {
+    font-weight: 500;
+    color: #64748b;
+}
+
+.customer-row {
+    transition: all 0.2s ease;
+}
+
+.customer-row:hover {
+    background-color: #f8fafc;
+}

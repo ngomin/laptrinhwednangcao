@@ -1,0 +1,49 @@
+/* orders.css */
+
+/* Stat cards */
+.order-stat-card {
+    transition: all 0.2s ease;
+}
+
+.order-stat-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.05);
+}
+
+/* Order creation form table */
+.order-items-table {
+    border-collapse: collapse;
+}
+
+.order-items-table th {
+    background-color: #f8fafc;
+    font-weight: 500;
+}
+
+.order-items-table tr:hover {
+    background-color: #f8fafc;
+}
+
+/* Product select in form */
+.order-product-select {
+    transition: border-color 0.2s;
+}
+
+.order-product-select:focus {
+    border-color: #3b82f6;
+    outline: none;
+}
+
+/* Table row hover */
+.table-row-hover {
+    transition: all 0.2s ease;
+}
+
+.table-row-hover:hover {
+    background-color: #f8fafc;
+}
+
+/* Status badges */
+.status-badge {
+    transition: all 0.2s ease;
+}

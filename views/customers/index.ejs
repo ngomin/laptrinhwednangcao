@@ -1,0 +1,102 @@
+<%- include('../partials/layout-start') %>
+
+<link rel="stylesheet" href="/css/customers.css">
+
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
+  <div class="bg-white border border-slate-200 rounded-xl p-4 stats-card">
+    <p class="text-xs text-slate-500 mb-1">Tổng khách hàng</p>
+    <p class="text-xl font-bold text-slate-800"><%= stats.total %></p>
+  </div>
+  <div class="bg-white border border-slate-200 rounded-xl p-4 stats-card">
+    <p class="text-xs text-slate-500 mb-1">Đang hoạt động</p>
+    <p class="text-xl font-bold text-emerald-600"><%= stats.active %></p>
+  </div>
+  <div class="bg-white border border-slate-200 rounded-xl p-4 stats-card">
+    <p class="text-xs text-slate-500 mb-1">Khách lẻ</p>
+    <p class="text-xl font-bold text-slate-800"><%= stats.retail %></p>
+  </div>
+  <div class="bg-white border border-slate-200 rounded-xl p-4 stats-card">
+    <p class="text-xs text-slate-500 mb-1">Khách sỉ</p>
+    <p class="text-xl font-bold text-slate-800"><%= stats.wholesale %></p>
+  </div>
+</div>
+
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
+  <form method="GET" class="flex flex-wrap items-center gap-2 flex-1">
+    <input type="text" name="search" value="<%= filters.search %>" placeholder="Tìm khách hàng..."
+           class="px-3.5 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500 w-full sm:w-64">
+    <select name="type" onchange="this.form.submit()" class="px-3 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500">
+      <option value="">Tất cả loại</option>
+      <option value="retail" <%= filters.type === 'retail' ? 'selected' : '' %>>Khách lẻ</option>
+      <option value="wholesale" <%= filters.type === 'wholesale' ? 'selected' : '' %>>Khách sỉ</option>
+    </select>
+    <select name="status" onchange="this.form.submit()" class="px-3 py-2 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500">
+      <option value="">Tất cả trạng thái</option>
+      <option value="active" <%= filters.status === 'active' ? 'selected' : '' %>>Hoạt động</option>
+      <option value="inactive" <%= filters.status === 'inactive' ? 'selected' : '' %>>Ngừng hoạt động</option>
+    </select>
+    <button type="submit" class="px-4 py-2 rounded-lg bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium">Lọc</button>
+  </form>
+  <a href="/customers/create"
+     class="bg-brand-600 hover:bg-brand-700 text-white text-sm font-medium px-4 py-2.5 rounded-lg transition-colors flex items-center gap-2 justify-center">
+    <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+    Thêm khách hàng
+  </a>
+</div>
+
+<div class="bg-white border border-slate-200 rounded-xl overflow-hidden">
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm customer-table">
+      <thead class="bg-slate-50 text-slate-500 text-xs uppercase tracking-wide">
+        <tr>
+          <th class="text-left px-5 py-3 font-medium">Khách hàng</th>
+          <th class="text-left px-5 py-3 font-medium">Liên hệ</th>
+          <th class="text-left px-5 py-3 font-medium">Loại</th>
+          <th class="text-right px-5 py-3 font-medium">Tổng chi tiêu</th>
+          <th class="text-left px-5 py-3 font-medium">Trạng thái</th>
+          <th class="text-right px-5 py-3 font-medium">Hành động</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-100">
+        <% if (customers.length === 0) { %>
+          <tr><td colspan="6" class="px-5 py-10 text-center text-slate-400">Không tìm thấy khách hàng nào.</td></tr>
+        <% } %>
+        <% customers.forEach(c => { %>
+          <tr class="table-row-hover customer-row">
+            <td class="px-5 py-3.5">
+              <a href="/customers/<%= c.id %>" class="font-medium text-slate-800 hover:text-brand-600"><%= c.name %></a>
+              <p class="text-xs text-slate-400"><%= c.code %></p>
+            </td>
+            <td class="px-5 py-3.5 text-slate-600">
+              <p><%= c.phone || '—' %></p>
+              <p class="text-xs text-slate-400"><%= c.email || '' %></p>
+            </td>
+            <td class="px-5 py-3.5">
+              <span class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium <%= c.type === 'wholesale' ? 'bg-violet-100 text-violet-700' : 'bg-sky-100 text-sky-700' %>">
+                <%= c.type === 'wholesale' ? 'Khách sỉ' : 'Khách lẻ' %>
+              </span>
+            </td>
+            <td class="px-5 py-3.5 text-right font-medium text-slate-800"><%= formatCurrency(c.totalSpent) %></td>
+            <td class="px-5 py-3.5">
+              <form action="/customers/<%= c.id %>/toggle-status" method="POST">
+                <button type="submit" class="inline-flex px-2.5 py-1 rounded-full text-xs font-medium <%= c.status === 'active' ? 'bg-emerald-100 text-emerald-700' : 'bg-slate-100 text-slate-500' %>">
+                  <%= c.status === 'active' ? 'Hoạt động' : 'Ngừng' %>
+                </button>
+              </form>
+            </td>
+            <td class="px-5 py-3.5 text-right">
+              <div class="flex items-center justify-end gap-3">
+                <a href="/customers/<%= c.id %>/edit" class="text-xs font-medium text-brand-600 hover:text-brand-700">Sửa</a>
+                <form action="/customers/<%= c.id %>/delete" method="POST" class="confirm-delete" data-confirm-message="Xoá khách hàng '<%= c.name %>'?">
+                  <button type="submit" class="text-xs font-medium text-rose-600 hover:text-rose-700">Xoá</button>
+                </form>
+              </div>
+            </td>
+          </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<%- include('../partials/layout-end') %>

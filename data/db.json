@@ -1,0 +1,333 @@
+{
+  "users": [
+    {
+      "id": "f409695d-937f-4ebd-8a69-f16182390f01",
+      "username": "admin",
+      "password": "$2a$10$DqmmpU8rT/U7K2qc3GamDeZ.FgFIuglK5kB7Dh7h0a0YkJT2rf4c6",
+      "fullName": "Quản trị viên",
+      "email": "admin@kho.vn",
+      "role": "admin",
+      "avatar": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "4c2a22d4-6818-4f79-8fd9-12c851555be7",
+      "username": "staff",
+      "password": "$2a$10$vjY0tZyqvCjTBQv02o9V7OHK88TOMd.QxWKxvHh/AdH9fIV/gAwH6",
+      "fullName": "Nguyễn Công Sơn Anh",
+      "email": "staff@kho.vn",
+      "role": "staff",
+      "avatar": "",
+      "createdAt": "2026-06-20T08:24:21.114Z",
+      "updatedAt": "2026-06-24T06:04:00.920Z"
+    }
+  ],
+  "categories": [
+    {
+      "id": "23b48118-6651-4c06-8ce4-37201ae00677",
+      "name": "Điện tử",
+      "slug": "dien-tu",
+      "description": "Thiết bị điện tử, linh kiện",
+      "status": "active",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "04d05ed4-d741-4ae5-a21f-37ed0789ad24",
+      "name": "Gia dụng",
+      "slug": "gia-dung",
+      "description": "Đồ dùng gia đình",
+      "status": "active",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "33990595-f8de-4224-818c-f0e9c4eaaa4c",
+      "name": "Văn phòng phẩm",
+      "slug": "van-phong-pham",
+      "description": "Dụng cụ văn phòng",
+      "status": "active",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    }
+  ],
+  "suppliers": [
+    {
+      "id": "5dd483f5-c125-46d2-9f70-da22e23757c5",
+      "name": "Công ty TNHH Thiết bị Điện tử An Phát",
+      "contact": "Trần Văn Phát",
+      "phone": "0901234567",
+      "email": "anphat@supplier.vn",
+      "address": "12 Nguyễn Trãi, Q.1, TP.HCM",
+      "taxCode": "0301234567",
+      "status": "active",
+      "note": "Nhà cung cấp linh kiện điện tử lâu năm",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "15f33482-5e93-4880-9f2d-17f45db20e9d",
+      "name": "Công ty CP Gia dụng Việt Mỹ",
+      "contact": "Lê Thị Mỹ",
+      "phone": "0912345678",
+      "email": "vietmy@supplier.vn",
+      "address": "88 Lê Lợi, Q.Hải Châu, Đà Nẵng",
+      "taxCode": "0401234567",
+      "status": "active",
+      "note": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    }
+  ],
+  "products": [
+    {
+      "id": "33663e4a-837f-486a-8dbf-218d853d82f2",
+      "code": "SP001",
+      "name": "Bàn phím cơ Logitech K120",
+      "categoryId": "23b48118-6651-4c06-8ce4-37201ae00677",
+      "supplierId": "5dd483f5-c125-46d2-9f70-da22e23757c5",
+      "unit": "Cái",
+      "costPrice": 250000,
+      "salePrice": 350000,
+      "stock": 45,
+      "minStock": 10,
+      "description": "Bàn phím cơ giá rẻ, bền bỉ",
+      "status": "active",
+      "image": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "dfec60a4-2b4e-4f74-8e71-be323c69d04d",
+      "code": "SP002",
+      "name": "Chuột không dây Logitech M331",
+      "categoryId": "23b48118-6651-4c06-8ce4-37201ae00677",
+      "supplierId": "5dd483f5-c125-46d2-9f70-da22e23757c5",
+      "unit": "Cái",
+      "costPrice": 180000,
+      "salePrice": 280000,
+      "stock": 8,
+      "minStock": 10,
+      "description": "Chuột không dây êm ái",
+      "status": "active",
+      "image": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "65ca4cf2-3280-4e93-a579-92796f2262c8",
+      "code": "SP003",
+      "name": "Nồi cơm điện Sharp 1.8L",
+      "categoryId": "04d05ed4-d741-4ae5-a21f-37ed0789ad24",
+      "supplierId": "15f33482-5e93-4880-9f2d-17f45db20e9d",
+      "unit": "Cái",
+      "costPrice": 650000,
+      "salePrice": 890000,
+      "stock": 20,
+      "minStock": 5,
+      "description": "Nồi cơm điện nắp gài",
+      "status": "active",
+      "image": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "f9a04ce0-49d9-449e-9db2-b270a9988506",
+      "code": "SP004",
+      "name": "Bút bi Thiên Long TL-027",
+      "categoryId": "33990595-f8de-4224-818c-f0e9c4eaaa4c",
+      "supplierId": "15f33482-5e93-4880-9f2d-17f45db20e9d",
+      "unit": "Hộp",
+      "costPrice": 45000,
+      "salePrice": 65000,
+      "stock": 3,
+      "minStock": 15,
+      "description": "Hộp 50 cây bút bi",
+      "status": "active",
+      "image": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "d388203c-358f-4f26-8912-e9d020904ec5",
+      "code": "SP005",
+      "name": "Quạt điện đứng Asia 16 inch",
+      "categoryId": "04d05ed4-d741-4ae5-a21f-37ed0789ad24",
+      "supplierId": "15f33482-5e93-4880-9f2d-17f45db20e9d",
+      "unit": "Cái",
+      "costPrice": 420000,
+      "salePrice": 580000,
+      "stock": 0,
+      "minStock": 5,
+      "description": "Quạt điện 3 tốc độ",
+      "status": "active",
+      "image": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    }
+  ],
+  "customers": [
+    {
+      "id": "0b0305e3-f993-4b9b-880a-2bab33301f71",
+      "code": "KH001",
+      "name": "Phạm Thị Hoa",
+      "phone": "0987654321",
+      "email": "hoa.pham@gmail.com",
+      "address": "23 Trần Hưng Đạo, Q.5, TP.HCM",
+      "type": "retail",
+      "totalOrders": 1,
+      "totalSpent": 630000,
+      "status": "active",
+      "note": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "8077adb2-f7dc-4855-a668-a75c15b9abed",
+      "code": "KH002",
+      "name": "Công ty TNHH Bán lẻ Minh Khang",
+      "phone": "0938112233",
+      "email": "minhkhang@company.vn",
+      "address": "45 Cách Mạng Tháng 8, Q.3, TP.HCM",
+      "type": "wholesale",
+      "totalOrders": 1,
+      "totalSpent": 3560000,
+      "status": "active",
+      "note": "Khách sỉ thân thiết",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "b4711b9a-6698-470f-bdb8-e15a741da2c8",
+      "code": "KH003",
+      "name": "Đỗ Văn Bình",
+      "phone": "0909887766",
+      "email": "binh.do@gmail.com",
+      "address": "101 Hai Bà Trưng, Q.1, TP.HCM",
+      "type": "retail",
+      "totalOrders": 0,
+      "totalSpent": 0,
+      "status": "active",
+      "note": "",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    }
+  ],
+  "orders": [
+    {
+      "id": "e9045acf-84f0-430a-8fb3-2d671d82ff26",
+      "code": "DH001",
+      "customerId": "0b0305e3-f993-4b9b-880a-2bab33301f71",
+      "staffId": "4c2a22d4-6818-4f79-8fd9-12c851555be7",
+      "orderDate": "2026-06-20T08:24:21.114Z",
+      "deliveryDate": null,
+      "status": "completed",
+      "paymentStatus": "paid",
+      "paymentMethod": "cash",
+      "subtotal": 630000,
+      "discount": 0,
+      "tax": 0,
+      "total": 630000,
+      "note": "Giao trong giờ hành chính",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "a86f7760-8532-4f75-bc77-96dbed19b810",
+      "code": "DH002",
+      "customerId": "8077adb2-f7dc-4855-a668-a75c15b9abed",
+      "staffId": "f409695d-937f-4ebd-8a69-f16182390f01",
+      "orderDate": "2026-06-20T08:24:21.114Z",
+      "deliveryDate": null,
+      "status": "completed",
+      "paymentStatus": "pending",
+      "paymentMethod": "transfer",
+      "subtotal": 3560000,
+      "discount": 100000,
+      "tax": 0,
+      "total": 3460000,
+      "note": "Đơn sỉ tháng",
+      "createdAt": "2026-06-20T08:24:21.114Z",
+      "updatedAt": "2026-06-24T06:05:20.243Z"
+    }
+  ],
+  "orderDetails": [
+    {
+      "id": "855b29bd-041e-4c94-8ceb-9e97606e2fb4",
+      "orderId": "e9045acf-84f0-430a-8fb3-2d671d82ff26",
+      "productId": "33663e4a-837f-486a-8dbf-218d853d82f2",
+      "productName": "Bàn phím cơ Logitech K120",
+      "quantity": 1,
+      "unit": "Cái",
+      "unitPrice": 350000,
+      "discount": 0,
+      "total": 350000
+    },
+    {
+      "id": "d8308019-7af0-48a2-a671-bfe50bd555d9",
+      "orderId": "e9045acf-84f0-430a-8fb3-2d671d82ff26",
+      "productId": "dfec60a4-2b4e-4f74-8e71-be323c69d04d",
+      "productName": "Chuột không dây Logitech M331",
+      "quantity": 1,
+      "unit": "Cái",
+      "unitPrice": 280000,
+      "discount": 0,
+      "total": 280000
+    },
+    {
+      "id": "5d0d3f58-f0b4-4960-aeb8-6c37b6a346eb",
+      "orderId": "a86f7760-8532-4f75-bc77-96dbed19b810",
+      "productId": "65ca4cf2-3280-4e93-a579-92796f2262c8",
+      "productName": "Nồi cơm điện Sharp 1.8L",
+      "quantity": 4,
+      "unit": "Cái",
+      "unitPrice": 890000,
+      "discount": 0,
+      "total": 3560000
+    }
+  ],
+  "warehouseTransactions": [
+    {
+      "id": "bbca1757-777c-4799-96b5-8ba382c9f0b1",
+      "type": "import",
+      "productId": "33663e4a-837f-486a-8dbf-218d853d82f2",
+      "productName": "Bàn phím cơ Logitech K120",
+      "quantity": 50,
+      "unit": "Cái",
+      "unitCost": 250000,
+      "totalCost": 12500000,
+      "supplierId": "5dd483f5-c125-46d2-9f70-da22e23757c5",
+      "note": "Nhập đầu kỳ",
+      "staffId": "f409695d-937f-4ebd-8a69-f16182390f01",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "ff338348-b3d0-4fd9-a935-3a7e2e8cb554",
+      "type": "import",
+      "productId": "65ca4cf2-3280-4e93-a579-92796f2262c8",
+      "productName": "Nồi cơm điện Sharp 1.8L",
+      "quantity": 24,
+      "unit": "Cái",
+      "unitCost": 650000,
+      "totalCost": 15600000,
+      "supplierId": "15f33482-5e93-4880-9f2d-17f45db20e9d",
+      "note": "Nhập đầu kỳ",
+      "staffId": "f409695d-937f-4ebd-8a69-f16182390f01",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "35c41eda-28cd-4b80-bb6b-f924965a3144",
+      "type": "export",
+      "productId": "33663e4a-837f-486a-8dbf-218d853d82f2",
+      "productName": "Bàn phím cơ Logitech K120",
+      "quantity": 1,
+      "unit": "Cái",
+      "unitCost": 350000,
+      "totalCost": 350000,
+      "supplierId": null,
+      "note": "Xuất bán DH001",
+      "staffId": "4c2a22d4-6818-4f79-8fd9-12c851555be7",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    },
+    {
+      "id": "4acdd0cb-5127-416f-b8e4-4056a8e58aad",
+      "type": "export",
+      "productId": "65ca4cf2-3280-4e93-a579-92796f2262c8",
+      "productName": "Nồi cơm điện Sharp 1.8L",
+      "quantity": 4,
+      "unit": "Cái",
+      "unitCost": 890000,
+      "totalCost": 3560000,
+      "supplierId": null,
+      "note": "Xuất bán DH002",
+      "staffId": "f409695d-937f-4ebd-8a69-f16182390f01",
+      "createdAt": "2026-06-20T08:24:21.114Z"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+<%- include('../partials/layout-start') %>
+
+<div class="max-w-xl">
+  <div class="bg-white border border-slate-200 rounded-xl p-6">
+    <form action="/warehouse/adjust" method="POST" class="space-y-4">
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">Sản phẩm <span class="text-rose-500">*</span></label>
+        <select name="productId" required class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500">
+          <option value="">— Chọn sản phẩm —</option>
+          <% products.forEach(p => { %>
+            <option value="<%= p.id %>"><%= p.name %> (Tồn hiện tại: <%= p.stock %> <%= p.unit %>)</option>
+          <% }) %>
+        </select>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">Số lượng tồn kho mới <span class="text-rose-500">*</span></label>
+        <input type="number" name="newStock" required min="0" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500">
+        <p class="text-xs text-slate-400 mt-1">Hệ thống sẽ tự tính chênh lệch so với tồn kho hiện tại.</p>
+      </div>
+      <div>
+        <label class="block text-sm font-medium text-slate-700 mb-1.5">Lý do điều chỉnh</label>
+        <textarea name="note" rows="3" class="w-full px-3.5 py-2.5 rounded-lg border border-slate-300 text-sm focus:ring-2 focus:ring-brand-500" placeholder="VD: Kiểm kê định kỳ, hàng hỏng..."></textarea>
+      </div>
+      <div class="flex justify-end gap-3 pt-2">
+        <a href="/warehouse" class="px-4 py-2.5 rounded-lg text-sm font-medium text-slate-600 hover:bg-slate-100">Huỷ</a>
+        <button type="submit" class="bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium px-5 py-2.5 rounded-lg transition-colors">
+          Xác nhận điều chỉnh
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<%- include('../partials/layout-end') %>
