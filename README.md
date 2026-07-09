@@ -1,3 +1,9 @@
+## Cài đặt
+npm install
+
+## Chạy ứng dụng
+npm start
+
 ##  Ngô Nhật Minh
 
 - Xác thực hệ thống & Người dùng
