@@ -67,7 +67,7 @@ app.use((err, req, res, next) => {
   res.status(500).render('500', { title: 'Lỗi hệ thống', error: err.message });
 });
 
-// ---------- Khởi động server (đợi seed dữ liệu mẫu nếu cần) ----------
+// ---------- Khởi động server  ----------
 const PORT = process.env.PORT || 3000;
 
 async function start() {
