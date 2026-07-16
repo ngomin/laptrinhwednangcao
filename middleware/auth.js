@@ -9,6 +9,13 @@ function isAuthenticated(req, res, next) {
   req.flash('error', 'Vui lòng đăng nhập để tiếp tục.');
   res.redirect('/auth/login');
 }
+function isAdmin(req, res, next) {
+  if (req.session && req.session.user && req.session.user.role === 'admin') {
+    return next();
+  }
+  req.flash('error', 'Bạn không có quyền truy cập trang này.');
+  res.redirect('/dashboard');
+}
 
 function isGuest(req, res, next) {
   if (req.session && req.session.user) {
