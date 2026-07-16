@@ -1,0 +1,8 @@
+<%
+  const active = typeof currentPath !== 'undefined' && currentPath && currentPath.startsWith(prefix);
+%>
+<a href="<%= href %>"
+   class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-colors <%= active ? 'bg-brand-600 text-white shadow-sm' : 'text-slate-300 hover:bg-slate-800 hover:text-white' %>">
+  <span class="w-5 text-center text-base"><%- icon %></span>
+  <span><%= label %></span>
+</a>
